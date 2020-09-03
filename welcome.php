@@ -25,13 +25,13 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <div class="or-seperator"><i>Inserción de datos</i></div>
             
             <div class="row">
-                <div class="col-md-7 form-group">
+                <div class="col-xs-7 form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-university"></i></span>
                         <input type="text" class="form-control" name="expediente" placeholder="ID Subasta" required="required">
                     </div>
                 </div>
-                <div class="col-md-5 form-group">
+                <div class="col-xs-5 form-group">
                     <div class="input-group" max-width= "40%">
                         <span class="input-group-addon"><i class="fa fa-sort-numeric-asc"></i></span>
                         <input type="clave" class="form-control" name="lote" placeholder="Lote" required="required">
