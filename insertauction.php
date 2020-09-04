@@ -8,7 +8,7 @@
   insertaenlatabla(datos)
   */
 
-  $idsubasta = "2";
+  $idsubasta = "6";
   $expediente = $_POST["expediente"];
   $lote = $_POST["lote"];
   $refcatastral = $_POST["refcatastral"];
@@ -19,18 +19,43 @@
 
   // $sql = "INSERT INTO subastas (id_subasta, expediente_subasta, lote_subasta, ref_catastral, descrip_detallada, notas_privadas, fecha_alta, id_agente) VALUES ($idsubasta, $expediente, $lote, $refcatastral, $description, $notes, $fecha, $idagente);";
 
-  $sql = "INSERT INTO subastas (id_subasta, expediente_subasta, lote_subasta, ref_catastral, descrip_detallada, notas_privadas, fecha_alta, id_agente) VALUES (".$idsubasta.", ".$expediente.", ".$lote.", ".$refcatastral.", ".$description.", ".$notes.", ".$fecha.", ".$idagente."); " ;
+  $sql = "INSERT INTO subastas (id_subasta, expediente_subasta, lote_subasta, ref_catastral, descrip_detallada, notas_privadas, fecha_alta, id_agente) VALUES (".$idsubasta.",&quot; ".$expediente."&quot;,&quot; ".$lote."&quot;,&quot; ".$refcatastral."&quot;,&quot; ".$description."&quot;,&quot; ".$notes."&quot;,&quot; ".$fecha."&quot;, ".$idagente."); " ;
 
-  echo "La consulta sql es";  
-  echo $sql ; <br>
+  // >>>>>>>> Probar este tipo de consulta: INSERT INTO subastas (id_subasta, expediente_subasta, lote_subasta, ref_catastral, descrip_detallada, notas_privadas, fecha_alta, id_agente) VALUES ("2"," SUB-JA-2020-677634"," 3456"," AS5467575DSD56D"," Es una de esas casas señoriales de las de antes"," Parece que nadie vive allí"," 9999-12-31"," 27");
+
+
+  echo "La consulta sql es".$sql ."<br>";
 
   include "connect.php";
 
-  if (mysql_query($sql)){
-    echo "<p>Registro agregado.</p>";
-  } else {
-    echo "<p>No se agregó...</p>";
-  }
+
+        if($stmt = mysqli_prepare($link, $sql)){
+            // // Bind variables to the prepared statement as parameters
+            // mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
+            
+            // // Set parameters
+            // $param_username = $username;
+            // $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
+            
+            // // Attempt to execute the prepared statement
+            // if(mysqli_stmt_execute($stmt)){
+            //     // Redirect to login page
+            //     header("location: index.php");
+            // } else{
+            //     echo "Algo no funcionó. Inténtalo más tarde.";
+            // }
+
+            // // Close statement
+            // mysqli_stmt_close($stmt);
+          echo "<p>ESTA ENTRANDO EN EL IF 55555</p>";
+        }
+
+
+  // if (mysql_query($sql)){
+  //   echo "<p>Registro agregado.</p>";
+  // } else {
+  //   echo "<p>No se agregó...</p>";
+  // }
 ?>
 
 <html>
