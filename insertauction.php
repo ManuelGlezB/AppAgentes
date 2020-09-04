@@ -1,13 +1,20 @@
 <?php
+  /*
+    TAREA MANUEL
+    modificar la funcion de tiempo en SQL para que añade tambien horas, min y segundos
+  */
+
+  session_start();
+
   //Get vars from request
-  $idsubasta = "9"; //+1 get last id from subasta
+  //$idsubasta = "16"; +1 get last id from subasta 
   $expediente = $_POST["expediente"];
   $lote = $_POST["lote"];
   $refcatastral = $_POST["refcatastral"];
   $description = $_POST["description"];
   $notes = $_POST["notes"];
-  $fecha = "9999-12-31"; //fecha actual
-  $idagente = "30"; //= get id from user
+  $idagente = "11";
+  //$idagente = ($_SESSION["id_agente"]); //= get id from user select id_agente from users
 
   // Create connection
   include "connect.php";
@@ -17,15 +24,31 @@
     die("Connection failed: " . $link->connect_error);
   }
 
-  //Create sql sentence
-  $sql = "INSERT INTO subastas (id_subasta, expediente_subasta, lote_subasta, ref_catastral, descrip_detallada, notas_privadas, fecha_alta, id_agente)
-  VALUES (".$idsubasta.",'".$expediente."',' ".$lote."',' ".$refcatastral."',' ".$description."',' ".$notes."', current_date() , ".$idagente."); " ;
+  //Create sql sentence for get id of auction
+  $idsubasta_sql = "SELECT id_subasta
+  FROM subastas
+  ORDER BY id_subasta DESC
+  LIMIT 1;";
 
-  //Try to insert
-  if ($link->query($sql) === TRUE) {
-    echo "New record created successfully";
+  //Try to get id auction
+  if ($idsubasta = $link->query($idsubasta_sql) === TRUE) {
+
+    /*$idsubasta++;*/
+
+    //Create sql sentence
+    $sql = "INSERT INTO subastas (id_subasta, expediente_subasta, lote_subasta, ref_catastral, descrip_detallada, notas_privadas, fecha_alta, id_agente)
+    VALUES (".$idsubasta.",'".$expediente."',' ".$lote."',' ".$refcatastral."',' ".$description."',' ".$notes."', current_date() , ".$idagente."); " ;
+
+    //Try to insert
+    if ($link->query($sql) === TRUE) {
+      echo "New record created successfully";
+    } else {
+      echo "Error intentando insertar con: " . $sql . "<br>" . $link->error;
+    }
+  } else if ($idsubasta = $link->query($idsubasta_sql) === FALSE) {
+    echo "FALSE Error obteniendo id subasta con: " . $idsubasta . "<br>" . $link->error;
   } else {
-    echo "Error: " . $sql . "<br>" . $link->error;
+    echo "VOID Error obteniendo id subasta con: " . $idsubasta . "<br>" . $link->error;
   }
 
   //Close connection
