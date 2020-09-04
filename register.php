@@ -7,10 +7,10 @@ $username = $password = $confirm_password = "";
 $username_err = $password_err = $confirm_password_err = "";
  
 // Processing form data when form is submitted
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+if($_SERVER["REQUEST_METHOD"] == "POST") {
  
     // Validate username
-    if(empty(trim($_POST["username"]))){
+    if(empty(trim($_POST["username"]))) {
         $username_err = "Pon tu nombre de usuario";
     } else {
         // Prepare a select statement
@@ -79,7 +79,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             if(mysqli_stmt_execute($stmt)){
                 // Redirect to login page
                 header("location: index.php");
-            } else{
+            } else if == false {
                 echo "Algo no funcionó. Inténtalo más tarde.";
             }
 
