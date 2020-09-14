@@ -14,7 +14,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $username_err = "Pon tu nombre de usuario";
     } else {
         // Prepare a select statement
-        $sql = "SELECT id FROM users WHERE username = ?";
+        $sql = "SELECT id_agente FROM users WHERE username = ?";
         
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -79,7 +79,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             if(mysqli_stmt_execute($stmt)){
                 // Redirect to login page
                 header("location: index.php");
-            } else if == false {
+            } else {
                 echo "Algo no funcionó. Inténtalo más tarde.";
             }
 
