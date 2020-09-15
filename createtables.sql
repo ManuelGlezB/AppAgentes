@@ -7,13 +7,13 @@
   
   CREATE TABLE subastas (
     id_subasta INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    expediente_subasta VARCHAR(50) NOT NULL UNIQUE,
-    lote_subasta VARCHAR(5) NOT NULL UNIQUE,
-    ref_catastral VARCHAR(25) NOT NULL UNIQUE,
+    expediente_subasta VARCHAR(50) NOT NULL,
+    lote_subasta VARCHAR(5) NOT NULL,
+    ref_catastral VARCHAR(25) NOT NULL,
     descrip_detallada TEXT,
     notas_privadas TEXT,
     fecha_alta DATETIME DEFAULT CURRENT_TIMESTAMP,
-    id_agente INT NOT NULL UNIQUE
+    id_agente INT NOT NULL 
   );
 
   CREATE TABLE agentes (
@@ -22,8 +22,8 @@
     link_twitter VARCHAR(150) NOT NULL UNIQUE,
     link_google VARCHAR(150) NOT NULL UNIQUE,
     email VARCHAR(50) NOT NULL UNIQUE,
-    password VARCHAR(50) NOT NULL UNIQUE,
-    recuerdame VARCHAR(2) NOT NULL UNIQUE,
+    password VARCHAR(50) NOT NULL,
+    recuerdame VARCHAR(2) NOT NULL,
     fecha_alta DATETIME DEFAULT CURRENT_TIMESTAMP,
     fecha_firma_ok_acuerdo DATETIME DEFAULT CURRENT_TIMESTAMP
   );

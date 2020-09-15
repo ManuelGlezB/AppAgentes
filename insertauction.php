@@ -7,52 +7,58 @@
   session_start();
 
   //Get vars from request
-  //$idsubasta = "16"; +1 get last id from subasta 
   $expediente = $_POST["expediente"];
   $lote = $_POST["lote"];
   $refcatastral = $_POST["refcatastral"];
   $description = $_POST["description"];
   $notes = $_POST["notes"];
-  $idagente = "11";
-  //$idagente = ($_SESSION["id_agente"]); //= get id from user select id_agente from users
+  $idagente = ($_SESSION["id_agente"]); //= get id from user select id_agente from users
 
   // Create connection
-  include "connect.php";
+  require_once "connect.php";
 
   // Check connection
   if ($link->connect_error) {
     die("Connection failed: " . $link->connect_error);
   }
 
-  //Create sql sentence for get id of auction
-  $idsubasta_sql = "SELECT id_subasta
-  FROM subastas
-  ORDER BY id_subasta DESC
-  LIMIT 1;";
 
-  //Try to get id auction
-  if ($idsubasta = $link->query($idsubasta_sql) === TRUE) {
+//>>>>>>>>>>>>>>>>>>
+// Prepare an insert statement
 
-    /*$idsubasta++;*/
+$sql = "INSERT INTO subastas ( expediente_subasta, lote_subasta, ref_catastral, descrip_detallada, notas_privadas, id_agente) VALUES (?, ?, ?, ?, ?, ?)";
 
-    //Create sql sentence
-    $sql = "INSERT INTO subastas (id_subasta, expediente_subasta, lote_subasta, ref_catastral, descrip_detallada, notas_privadas, fecha_alta, id_agente)
-    VALUES (".$idsubasta.",'".$expediente."',' ".$lote."',' ".$refcatastral."',' ".$description."',' ".$notes."', current_date() , ".$idagente."); " ;
+if($stmt = mysqli_prepare($link, $sql)){
+  // Bind variables to the prepared statement as parameters
+  mysqli_stmt_bind_param($stmt, "sisssi", $param_expediente, $param_lote, $param_refcatastral, $param_description, $param_notes, $param_idagente );
+    
+  // Set parameters
+  $param_expediente = $expediente;
+  $param_lote = $lote;
+  $param_refcatastral = $refcatastral; 
+  $param_description = $description;
+  $param_notes = $notes;
+  $param_idagente = $idagente;
 
-    //Try to insert
-    if ($link->query($sql) === TRUE) {
-      echo "New record created successfully";
-    } else {
-      echo "Error intentando insertar con: " . $sql . "<br>" . $link->error;
-    }
-  } else if ($idsubasta = $link->query($idsubasta_sql) === FALSE) {
-    echo "FALSE Error obteniendo id subasta con: " . $idsubasta . "<br>" . $link->error;
+
+  // Attempt to execute the prepared statement
+  if(mysqli_stmt_execute($stmt)){
+    // Redirect to login page
+    echo "Funcionó";
+    //                header("location: index.php");
   } else {
-    echo "VOID Error obteniendo id subasta con: " . $idsubasta . "<br>" . $link->error;
+    echo "Algo no funcionó. Inténtalo más tarde.";
   }
 
-  //Close connection
-  $link->close();
+  // Close statement
+  mysqli_stmt_close($stmt);
+}
+
+//>>>>>>>>>>>>>>>>>>
+
+ // Close connection
+    mysqli_close($link);
+
 ?>
 
 <html>
