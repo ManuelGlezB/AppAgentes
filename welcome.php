@@ -69,8 +69,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     </div>
 
         <div class="page-header"  style="text-align: center;">
-            <h3><br><?php echo htmlspecialchars($_SESSION["username"]); ?></b></h3>
-            <div row >
+            <h3><br><?php echo htmlspecialchars($_SESSION["email"]); ?></b></h3>
+            <div class="row" >
                 <a href="reset-password.php" class="btn btn-warning">Resetear Clave</a>
                 <a href="logout.php" class="btn btn-danger">Salir</a>
             </div>

@@ -1,13 +1,12 @@
   CREATE TABLE users (
     id_agente INT NOT NULL PRIMARY KEY AUTO_INCREMENT,    
-    email VARCHAR(50) DEFAULT NULL,    
-    username VARCHAR(50) NOT NULL UNIQUE,
+    username VARCHAR(50) DEFAULT NULL,    
+    email VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     link_facebook VARCHAR(150) DEFAULT NULL,
     link_twitter VARCHAR(150) DEFAULT NULL,
     link_google VARCHAR(150) DEFAULT NULL,
-    password VARCHAR(50) NOT NULL,
     recuerdame VARCHAR(2) DEFAULT NULL,
     fecha_alta DATETIME DEFAULT CURRENT_TIMESTAMP,
     fecha_firma_ok_acuerdo DATETIME DEFAULT CURRENT_TIMESTAMP

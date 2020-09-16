@@ -3,25 +3,25 @@
 require_once "connect.php";
  
 // Define variables and initialize with empty values
-$username = $password = $confirm_password = "";
-$username_err = $password_err = $confirm_password_err = "";
+$email = $password = $confirm_password = "";
+$email_err = $password_err = $confirm_password_err = "";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST") {
  
-    // Validate username
-    if(empty(trim($_POST["username"]))) {
-        $username_err = "Pon tu nombre de usuario";
+    // Validate email
+    if(empty(trim($_POST["email"]))) {
+        $email_err = "Pon tu Email";
     } else {
         // Prepare a select statement
-        $sql = "SELECT id_agente FROM users WHERE username = ?";
+        $sql = "SELECT id_agente FROM users WHERE email = ?";
         
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_username);
+            mysqli_stmt_bind_param($stmt, "s", $param_email);
             
             // Set parameters
-            $param_username = trim($_POST["username"]);
+            $param_email = trim($_POST["email"]);
             
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
@@ -29,9 +29,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 mysqli_stmt_store_result($stmt);
                 
                 if(mysqli_stmt_num_rows($stmt) == 1){
-                    $username_err = "Nombre de usuario ya existe";
+                    $email_err = "El Email ya existe";
                 } else{
-                    $username = trim($_POST["username"]);
+                    $email = trim($_POST["email"]);
                 }
             } else{
                 echo "Oops! Algo no funcionó. Inténtalo más tarde.";
@@ -62,17 +62,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     
     // Check input errors before inserting in database
-    if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
+    if(empty($email_err) && empty($password_err) && empty($confirm_password_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO users (email, password) VALUES (?, ?)";
          
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "sss", $param_username, $param_password, $param_username);
+            mysqli_stmt_bind_param($stmt, "ss", $param_email, $param_password);
             
             // Set parameters
-            $param_username = $username;
+            $param_email = $email;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
             
             // Attempt to execute the prepared statement
@@ -120,9 +120,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                     <br>
                     <p>Crea tu cuenta</p>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                        <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
-                            <input type="text" name="username" class="form-control" placeholder="Tu Email" value="<?php echo $username; ?>">
-                            <span class="help-block"><?php echo $username_err; ?></span>
+                        <div class="form-group <?php echo (!empty($email_err)) ? 'has-error' : ''; ?>">
+                            <input type="text" name="email" class="form-control" placeholder="Tu Email" value="<?php echo $email; ?>">
+                            <span class="help-block"><?php echo $email_err; ?></span>
                         </div>    
                         <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
                             <input type="password" name="password" class="form-control" placeholder="Clave" value="<?php echo $password; ?>">
