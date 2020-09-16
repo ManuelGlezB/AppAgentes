@@ -45,6 +45,10 @@ if($stmt = mysqli_prepare($link, $sql)){
   if(mysqli_stmt_execute($stmt)){
     // Redirect to login page
     echo "Funcionó";
+    
+</div>
+    header("location: insertauctionview.php");
+
     //                header("location: index.php");
   } else {
     echo "Algo no funcionó. Inténtalo más tarde.";
@@ -59,20 +63,8 @@ if($stmt = mysqli_prepare($link, $sql)){
  // Close connection
     mysqli_close($link);
 
+
+
 ?>
 
-<html>
-<?php include "head.php" ?>
-<body>
 
-  <h4>Agregando el siguiente registro</h4>
-
-  <p>Tu Id Subasta es <?php echo $_POST["expediente"]; ?><br></p>
-  <p>Tu lote es: <?php echo $_POST["lote"]; ?></p>
-  <p>Tu refcatastral es: <?php echo $_POST["refcatastral"]; ?></p>
-  <p>Tu description es: <?php echo $_POST["description"]; ?></p>
-  <p>Tu notes es: <?php echo $_POST["notes"]; ?></p>
-
-  <?php include "footer.php" ?>
-</body>
-</html>

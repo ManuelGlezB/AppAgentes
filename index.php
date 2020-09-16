@@ -5,9 +5,9 @@ $id_agente_global = 0;
 // Initialize the session
 session_start();
  
-// Check if the user is already logged in, if yes then redirect him to welcome page
+// Check if the user is already logged in, if yes then redirect him to insertauctionview page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: welcome.php");
+    header("location: insertauctionview.php");
     exit;
 }
  
@@ -67,8 +67,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["email"] = $email;
                             $id_agente_global = $_SESSION["id_agente"];                        
                             
-                            // Redirect user to welcome page
-                            header("location: welcome.php");
+                            // Redirect user to insertauctionview page
+                            header("location: insertauctionview.php");
                         } else{
                             // Display an error message if password is not valid
                             $password_err = "La Clave No Es Válida";
