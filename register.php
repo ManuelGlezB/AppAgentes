@@ -65,11 +65,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO users (username, password) VALUES (?, ?)";
+        $sql = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
          
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
+            mysqli_stmt_bind_param($stmt, "sss", $param_username, $param_password, $param_username);
             
             // Set parameters
             $param_username = $username;
@@ -81,6 +81,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("location: index.php");
             } else {
                 echo "Algo no funcionó. Inténtalo más tarde.";
+                echo $sql;
+                printf("Errormessage: %s\n", $stmt->error);
             }
 
             // Close statement

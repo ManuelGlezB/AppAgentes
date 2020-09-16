@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 04-09-2020 a las 11:20:19
+-- Tiempo de generación: 15-09-2020 a las 10:11:26
 -- Versión del servidor: 5.7.31
 -- Versión de PHP: 7.3.21
 
@@ -20,32 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `agentes`
 --
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `agentes`
---
-
-DROP TABLE IF EXISTS `agentes`;
-CREATE TABLE IF NOT EXISTS `agentes` (
-  `id_agente` int(11) NOT NULL AUTO_INCREMENT,
-  `link_facebook` varchar(150) COLLATE latin1_spanish_ci NOT NULL,
-  `link_twitter` varchar(150) COLLATE latin1_spanish_ci NOT NULL,
-  `link_google` varchar(150) COLLATE latin1_spanish_ci NOT NULL,
-  `email` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
-  `password` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
-  `recuerdame` varchar(2) COLLATE latin1_spanish_ci NOT NULL,
-  `fecha_alta` datetime DEFAULT CURRENT_TIMESTAMP,
-  `fecha_firma_ok_acuerdo` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id_agente`),
-  UNIQUE KEY `link_facebook` (`link_facebook`),
-  UNIQUE KEY `link_twitter` (`link_twitter`),
-  UNIQUE KEY `link_google` (`link_google`),
-  UNIQUE KEY `email` (`email`),
-  UNIQUE KEY `password` (`password`),
-  UNIQUE KEY `recuerdame` (`recuerdame`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -80,21 +54,16 @@ CREATE TABLE IF NOT EXISTS `subastas` (
   `notas_privadas` text COLLATE latin1_spanish_ci,
   `fecha_alta` datetime DEFAULT CURRENT_TIMESTAMP,
   `id_agente` int(11) NOT NULL,
-  PRIMARY KEY (`id_subasta`),
-  UNIQUE KEY `expediente_subasta` (`expediente_subasta`),
-  UNIQUE KEY `lote_subasta` (`lote_subasta`),
-  UNIQUE KEY `ref_catastral` (`ref_catastral`),
-  UNIQUE KEY `id_agente` (`id_agente`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+  PRIMARY KEY (`id_subasta`)
+) ENGINE=MyISAM AUTO_INCREMENT=157 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `subastas`
 --
 
 INSERT INTO `subastas` (`id_subasta`, `expediente_subasta`, `lote_subasta`, `ref_catastral`, `descrip_detallada`, `notas_privadas`, `fecha_alta`, `id_agente`) VALUES
-(1, 'sub-ja', '3', 'kjskdjfbjs5656546dknkashd', 'casa de madera', 'mis notas particulares van aquí', '9999-12-31 00:00:00', 24),
-(4, 'SUB-JA-2020-677634', '3456', 'AS5467575DSD56D', 'Es una de esas casas señoriales de las de antes', 'Parece que nadie vive allí', '9999-12-31 00:00:00', 27),
-(5, ' SUB-JA-2020-677634', ' 3456', ' AS5467575DSD56D', ' Es una de esas casas señoriales de las de antes', ' Parece que nadie vive allí', '9999-12-31 00:00:00', 28);
+(156, 'SUB-dfdfgdf-2020-677634', '34', 'hhjghjdghgchmcg', 'Es una de esdjdghjas casas seÃ±oriales de las de antes', 'Parece quehjdghjhgdgnadie vive allÃ­', '2020-09-15 10:59:33', 8),
+(155, 'SUB-JA-2020-677634', '3', 'AS5467575DSD56D', 'Es una de esas casas seÃ±oriales de las de antes', 'Parece que nadie vive allÃ­', '2020-09-15 10:59:14', 8);
 
 -- --------------------------------------------------------
 
@@ -104,22 +73,22 @@ INSERT INTO `subastas` (`id_subasta`, `expediente_subasta`, `lote_subasta`, `ref
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_agente` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
+  `email` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
   `password` varchar(255) COLLATE latin1_spanish_ci NOT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
-
---
--- Volcado de datos para la tabla `users`
---
-
-INSERT INTO `users` (`id`, `username`, `password`, `created_at`) VALUES
-(1, 'Manolo', '$2y$10$iRKnLUC0vNBGYo9kqyMDmuSgo23E/LdvAEyzYRW3LpFwGLTUpR43i', '2020-09-03 14:14:55'),
-(2, 'Raquel', '$2y$10$nW10t2PHFZxRymbgpCHEs.q7.ZGSWAqOEVEAL9rHFxuPpRCWZjepm', '2020-09-03 14:47:02'),
-(3, 'arscanarias@gmail.com', '$2y$10$RL4HJI6K8qnSEPu9TGPeFOqyYJPmHvVZjyzLBge0L0ih199/j2vLW', '2020-09-03 18:14:00');
+  `link_facebook` varchar(150) COLLATE latin1_spanish_ci NOT NULL,
+  `link_twitter` varchar(150) COLLATE latin1_spanish_ci NOT NULL,
+  `link_google` varchar(150) COLLATE latin1_spanish_ci NOT NULL,
+  `recuerdame` varchar(2) COLLATE latin1_spanish_ci NOT NULL,
+  `fecha_alta` datetime DEFAULT CURRENT_TIMESTAMP,
+  `fecha_firma_ok_acuerdo` datetime DEFAULT NULL,
+  PRIMARY KEY (`id_agente`),
+  UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `link_facebook` (`link_facebook`),
+  UNIQUE KEY `link_twitter` (`link_twitter`),
+  UNIQUE KEY `link_google` (`link_google`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

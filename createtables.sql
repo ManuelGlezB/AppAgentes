@@ -1,9 +1,20 @@
   CREATE TABLE users (
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id_agente INT NOT NULL PRIMARY KEY AUTO_INCREMENT,    
+    email VARCHAR(50) DEFAULT NULL,    
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    link_facebook VARCHAR(150) DEFAULT NULL,
+    link_twitter VARCHAR(150) DEFAULT NULL,
+    link_google VARCHAR(150) DEFAULT NULL,
+    password VARCHAR(50) NOT NULL,
+    recuerdame VARCHAR(2) DEFAULT NULL,
+    fecha_alta DATETIME DEFAULT CURRENT_TIMESTAMP,
+    fecha_firma_ok_acuerdo DATETIME DEFAULT CURRENT_TIMESTAMP
+
   );
+
+
   
   CREATE TABLE subastas (
     id_subasta INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -16,17 +27,7 @@
     id_agente INT NOT NULL 
   );
 
-  CREATE TABLE agentes (
-    id_agente INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    link_facebook VARCHAR(150) NOT NULL UNIQUE,
-    link_twitter VARCHAR(150) NOT NULL UNIQUE,
-    link_google VARCHAR(150) NOT NULL UNIQUE,
-    email VARCHAR(50) NOT NULL UNIQUE,
-    password VARCHAR(50) NOT NULL,
-    recuerdame VARCHAR(2) NOT NULL,
-    fecha_alta DATETIME DEFAULT CURRENT_TIMESTAMP,
-    fecha_firma_ok_acuerdo DATETIME DEFAULT CURRENT_TIMESTAMP
-  );
+  
 
   CREATE TABLE multimedia (
     id_multimedia INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
