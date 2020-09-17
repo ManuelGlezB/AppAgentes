@@ -1,8 +1,4 @@
 <?php
-  /*
-    TAREA MANUEL
-    modificar la funcion de tiempo en SQL para que añade tambien horas, min y segundos
-  */
 
   session_start();
 
@@ -22,49 +18,39 @@
     die("Connection failed: " . $link->connect_error);
   }
 
+  // Prepare an insert statement
+  $sql = "INSERT INTO subastas ( expediente_subasta, lote_subasta, ref_catastral, descrip_detallada, notas_privadas, id_agente) VALUES (?, ?, ?, ?, ?, ?)";
 
-//>>>>>>>>>>>>>>>>>>
-// Prepare an insert statement
-
-$sql = "INSERT INTO subastas ( expediente_subasta, lote_subasta, ref_catastral, descrip_detallada, notas_privadas, id_agente) VALUES (?, ?, ?, ?, ?, ?)";
-
-if($stmt = mysqli_prepare($link, $sql)){
-  // Bind variables to the prepared statement as parameters
-  mysqli_stmt_bind_param($stmt, "sisssi", $param_expediente, $param_lote, $param_refcatastral, $param_description, $param_notes, $param_idagente );
-    
-  // Set parameters
-  $param_expediente = $expediente;
-  $param_lote = $lote;
-  $param_refcatastral = $refcatastral; 
-  $param_description = $description;
-  $param_notes = $notes;
-  $param_idagente = $idagente;
+  if ($stmt = mysqli_prepare($link, $sql)){
+    // Bind variables to the prepared statement as parameters
+    mysqli_stmt_bind_param($stmt, "sisssi", $param_expediente, $param_lote, $param_refcatastral, $param_description, $param_notes, $param_idagente );
+      
+    // Set parameters
+    $param_expediente = $expediente;
+    $param_lote = $lote;
+    $param_refcatastral = $refcatastral; 
+    $param_description = $description;
+    $param_notes = $notes;
+    $param_idagente = $idagente;
 
 
-  // Attempt to execute the prepared statement
-  if(mysqli_stmt_execute($stmt)){
-    // Redirect to login page
-    echo "Funcionó";
-    
-</div>
-    header("location: insertauctionview.php");
+    // Attempt to execute the prepared statement
+    if(mysqli_stmt_execute($stmt)){
+      // Redirect to insertauctionview page
+ 
+      // POST POR LA REQUEST SUCESS
+      $success = $_POST['success'];
+      echo "success: ".$usuario; 
+      header("location: insertauctionview.php");
+    } else {
+      echo "Algo no funcionó. Inténtalo más tarde.";
+    }
 
-    //                header("location: index.php");
-  } else {
-    echo "Algo no funcionó. Inténtalo más tarde.";
+    // Close statement
+    mysqli_stmt_close($stmt);
   }
-
-  // Close statement
-  mysqli_stmt_close($stmt);
-}
-
-//>>>>>>>>>>>>>>>>>>
-
- // Close connection
-    mysqli_close($link);
-
-
-
+  // Close connection
+  mysqli_close($link);
 ?>
 
 

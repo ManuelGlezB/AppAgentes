@@ -12,11 +12,26 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <?php include "head.php" ?>
 
 <body>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal header default</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Modal text default.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="login-form">
-
-
-            
         <form action="insertauction.php" method="post">
             <div class="logo-container-wrapper">
                 <img src="img/cropped-subastafacil-logo.png" alt="logo subastafacil" class="logo-container">       
@@ -58,6 +73,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                 </div>
             </div>        
             <div class="text-center social-btn">
+                <input name="archivo" id="archivo" type="file" />
                 <a href="#" class="btn btn-success btn-block"><i class="fa fa-file-image-o"></i>Añade Imágenes y Videos</a>
             </div>
             <div class="form-group">
@@ -68,48 +84,46 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         <div class="hint-text small"><a href="#" class="text-success">Ver Documento Propuesta a Deudores</a></div>
     </div>
 
-        <div class="page-header"  style="text-align: center;">
-            <h3><br><?php echo htmlspecialchars($_SESSION["email"]); ?></b></h3>
-            <div class="row" >
-                <a href="reset-password.php" class="btn btn-warning">Resetear Clave</a>
-                <a href="logout.php" class="btn btn-danger">Salir</a>
-            </div>
+    <div class="page-header"  style="text-align: center;">
+        <h3><br><?php echo htmlspecialchars($_SESSION["email"]); ?></b></h3>
+        <div class="row" >
+            <a href="reset-password.php" class="btn btn-warning">Resetear Clave</a>
+            <a href="logout.php" class="btn btn-danger">Salir</a>
         </div>
-
-
-<?php
-    $successinsert = true;
-    if ($successinsert) 
-    {
-    echo ' 
-    <div class="modal" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p>Modal body text goes here.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Save changes</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>';
-    } 
-
-?>
-
-
-
+    </div>
 
     <?php include "footer.php" ?>
+ 
+    <script>
 
+        /* GET SUCESS POR LA REQUEST */
+        var url = "insertauction.php";
+        $.ajax({                        
+           type: "POST",                 
+           url: url,                     
+           data: "success", 
+           success: function(data)             
+           {
+             //alert(data);               
+           }
+       });
+
+
+        if (typeof sucess !== 'undefined') {
+            //existe sucess
+            if (sucess == 1) {
+                $(".modal-title").html("Éxito");
+                $(".modal-body").html("Subasta insertada con éxito");
+                $("#myModal").modal('show');
+            } else if (sucess == 0) {
+                $(".modal-title").html("Error");
+                $(".modal-body").html("Subasta no insertada. Vuelve a intentarlo.");
+                $("#myModal").modal('show');
+            }
+        } else {
+            //no existe sucess
+            //alert("sucess no existe");
+        }
+    </script>
 </body>
-
 </html>

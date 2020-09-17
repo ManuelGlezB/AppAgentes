@@ -10,10 +10,7 @@
     recuerdame VARCHAR(2) DEFAULT NULL,
     fecha_alta DATETIME DEFAULT CURRENT_TIMESTAMP,
     fecha_firma_ok_acuerdo DATETIME DEFAULT CURRENT_TIMESTAMP
-
   );
-
-
   
   CREATE TABLE subastas (
     id_subasta INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -25,8 +22,6 @@
     fecha_alta DATETIME DEFAULT CURRENT_TIMESTAMP,
     id_agente INT NOT NULL 
   );
-
-  
 
   CREATE TABLE multimedia (
     id_multimedia INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
