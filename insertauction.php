@@ -45,13 +45,12 @@ if($stmt = mysqli_prepare($link, $sql)){
   if(mysqli_stmt_execute($stmt)){
     // Redirect to login page
     echo "Funcionó";
-    
-</div>
-    header("location: insertauctionview.php");
+    header("location: insertauctionview.php?success=ok");
 
     //                header("location: index.php");
   } else {
     echo "Algo no funcionó. Inténtalo más tarde.";
+    header("location: insertauctionview.php?success=no-ok");
   }
 
   // Close statement
