@@ -12,11 +12,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <?php include "head.php" ?>
 
 <body>
-
-    <div class="login-form">
-
-
-            
+    <div class="login-form">  
         <form action="insertauction.php" method="post">
             <div class="logo-container-wrapper">
                 <img src="img/cropped-subastafacil-logo.png" alt="logo subastafacil" class="logo-container">       
@@ -79,49 +75,34 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
 <?php
     
-    if(isset($_GET['success'])) {
+    if (isset($_GET['success'])) {
 
         $success = $_GET["success"];
         if ($success == "ok") {
         echo '
-        <div class="container">
-        <h2>Modal Example</h2>
-        <!-- Trigger the modal with a button -->
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+        <!-- Trigger/Open The Modal -->
+        <button id="myBtn">Open Modal</button>
 
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
 
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Modal Header</h4>
-            </div>
-            <div class="modal-body">
-              <p>Some text in the modal.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-          
-        </div>
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Some text in the Modal..</p>
         </div>
 
         </div>';
 
-        echo '<script>
-            document.getElementsByClassName("btn-info")[0].click();
+        echo '        
+        <script>
+            modal.style.display = "block";
         </script>';
-        } 
+    } 
 }   
 
 ?>
-
     <?php include "footer.php" ?>
 
 </body>
-
 </html>
