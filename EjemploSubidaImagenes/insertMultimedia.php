@@ -5,8 +5,24 @@
 
 <?php
 
-//Si se quiere subir una imagen
-if (isset($_POST['subir'])) {
+if(isset($_POST['subir'])){
+ 
+ // Count total files
+ $countfiles = count($_FILES['file']['name']);
+
+ // Looping all files
+ for($i=0;$i<$countfiles;$i++){
+  $filename = $_FILES['file']['name'][$i];
+ 
+  // Upload file
+  move_uploaded_file($_FILES['file']['tmp_name'][$i],'images/'.$filename);
+ 
+ }
+} 
+
+
+//Si se quiere subir una SOLA imagen
+if (isset($_POST['bloqueo'])) {
    //Recogemos el archivo enviado por el formulario
    $archivo = $_FILES['archivo']['name'];
    //Si el archivo contiene algo y es diferente de vacio
@@ -67,8 +83,11 @@ if (isset($_POST['subir'])) {
 }
 ?>
 
+
+
 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" enctype="multipart/form-data"/>
-  Añadir imagen: <input name="archivo" id="archivo" type="file" multiple/>
+  <!-- Añadir imagen: <input name="archivo" id="archivo" type="file" multiple/> -->
+  Añadir imagen:  <input type="file" name="file[]" id="file" multiple>
   <input type="submit" name="subir" value="Subir imagen"/>
 </form>
 
