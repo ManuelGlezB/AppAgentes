@@ -4,6 +4,7 @@
 </head>
 
 <?php
+
 //Si se quiere subir una imagen
 if (isset($_POST['subir'])) {
    //Recogemos el archivo enviado por el formulario
@@ -16,13 +17,16 @@ if (isset($_POST['subir'])) {
       $temp = $_FILES['archivo']['tmp_name'];
       //Se comprueba si el archivo a cargar es correcto observando su extensión y tamaño
       //MEJORAR
-     if (!((strpos($tipo, "gif") || strpos($tipo, "jpeg") || strpos($tipo, "jpg") || strpos($tipo, "png")) && ($tamano < 2000000))) {
+      
+     if (!((strpos($tipo, "gif") || strpos($tipo, "jpeg") || strpos($tipo, "jpg") || strpos($tipo, "png")) && ($tamano < 20000000))) {
         echo '<div><b>Error. La extensión o el tamaño de los archivos no es correcta.<br/>
-        - Se permiten archivos .gif, .jpg, .png. y de 200 kb como máximo.</b></div>';
+        - Se permiten archivos .gif, .jpg, .png. y de 2000 kb como máximo.</b></div>';
+ 
      } else {
         //Si la imagen es correcta en tamaño y tipo
         //Se intenta subir al servidor
         if (move_uploaded_file($temp, 'images/'.$archivo)) {
+        	
             //Cambiamos los permisos del archivo a 777 para poder modificarlo posteriormente
             chmod('images/'.$archivo, 0777);
             //Mostramos el mensaje de que se ha subido co éxito
@@ -43,7 +47,7 @@ if (isset($_POST['subir'])) {
                $param_ubicacion_fichero = "url/images"; //url + /carpeta_expediente_subasta/ + $archivo
 
                if(mysqli_stmt_execute($stmt)) {
-                  header("location: insertMultimedia.php");
+                  // header("location: insertMultimedia.php");
                } else {
                   echo "Algo no funcionó. Inténtalo más tarde.";
                }
@@ -64,7 +68,7 @@ if (isset($_POST['subir'])) {
 ?>
 
 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" enctype="multipart/form-data"/>
-  Añadir imagen: <input name="archivo" id="archivo" type="file"/>
+  Añadir imagen: <input name="archivo" id="archivo" type="file" multiple/>
   <input type="submit" name="subir" value="Subir imagen"/>
 </form>
 
