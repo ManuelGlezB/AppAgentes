@@ -13,7 +13,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
 <body>
     <div class="login-form">  
-        <form action="insertauction.php" method="post">
+        <form action="insertauction.php" method="post" enctype='multipart/form-data'>
             <div class="logo-container-wrapper">
                 <img src="img/cropped-subastafacil-logo.png" alt="logo subastafacil" class="logo-container">       
             </div>
@@ -54,6 +54,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                 </div>
             </div>        
             <div class="text-center social-btn">
+                <p>Selecciona las imagenes a subir (límite de 4 a la vez)</p>
+                <input type="file" name="file[]" id="file" multiple accept=".gif,.jpg,.jpeg,.png">
                 <a href="#" class="btn btn-success btn-block"><i class="fa fa-file-image-o"></i>Añade Imágenes y Videos</a>
             </div>
             <div class="form-group">
@@ -64,13 +66,17 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         <div class="hint-text small"><a href="#" class="text-success">Ver Documento Propuesta a Deudores</a></div>
     </div>
 
-        <div class="page-header"  style="text-align: center;">
-            <h3><br><?php echo htmlspecialchars($_SESSION["email"]); ?></b></h3>
-            <div class="row" >
-                <a href="reset-password.php" class="btn btn-warning">Resetear Clave</a>
-                <a href="logout.php" class="btn btn-danger">Salir</a>
-            </div>
+    <div class="page-header"  style="text-align: center;">
+        <h3><br><?php echo htmlspecialchars($_SESSION["email"]); ?></b></h3>
+        <div class="row" >
+            <a href="reset-password.php" class="btn btn-warning">Resetear Clave</a>
+            <a href="logout.php" class="btn btn-danger">Salir</a>
         </div>
+    </div>
+
+    <h1>Galería de miniaturas</h1>
+    <p>Pasa el ratón por encima para ver la imagen en grande.</p>
+    <div class="gallery"></div>
 
 
 <?php
